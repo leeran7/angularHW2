@@ -44,11 +44,12 @@ export class PlacesService {
   constructor() {}
 
   getPlaces() {
+    console.log(this.places);
     return [...this.places];
   }
 
   getPlace(id: number) {
-    return { ...this.places.find((item) => item.id === id) };
+    return this.places.find((place) => place.id === id);
   }
 }
 

@@ -1,9 +1,17 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>place-detail</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button
+          [text]="buttonText"
+          [icon]="buttonIcon">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>{{place.title}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content class="ion-padding">
+    <ion-img [src]='place.image'></ion-img>
+    <p>{{place.description}}</p>
+    <ion-button color="primary" margin (click)="bookPlace()" >Book</ion-button>
 </ion-content>
