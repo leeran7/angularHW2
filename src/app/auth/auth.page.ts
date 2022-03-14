@@ -8,10 +8,16 @@ import { AuthService } from './auth.service';
   styleUrls: ['./auth.page.scss'],
 })
 export class AuthPage implements OnInit {
+  authenticated = false;
   constructor(private authService: AuthService, private router: Router) {}
   ngOnInit() {}
   onLogin() {
     this.authService.login();
     this.router.navigateByUrl('/places/tabs/discover');
+    this.authenticated = this.authService.isAuthenticated();
+  }
+  onLogout() {
+    this.authService.logout();
+    this.authenticated = this.authService.isAuthenticated();
   }
 }
