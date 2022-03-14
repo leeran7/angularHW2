@@ -9,22 +9,10 @@ const routes: Routes = [
     children: [
       {
         path: 'discover',
-        children: [
-          {
-            path: '',
-            loadChildren: () =>
-              import('./discover/discover.module').then(
-                (m) => m.DiscoverPageModule
-              ),
-          },
-          {
-            path: 'placeId',
-            loadChildren: () =>
-              import('./discover/place-detail/place-detail.module').then(
-                (m) => m.PlaceDetailPageModule
-              ),
-          },
-        ],
+        loadChildren: () =>
+          import('./discover/discover.module').then(
+            (m) => m.DiscoverPageModule
+          ),
       },
       {
         path: 'offers',
@@ -35,25 +23,17 @@ const routes: Routes = [
               import('./offers/offers.module').then((m) => m.OffersPageModule),
           },
           {
-            path: 'new',
-            loadChildren: () =>
-              import('./offers/new-offer/new-offer.module').then(
-                (m) => m.NewOfferPageModule
-              ),
-          },
-          {
-            path: 'edit/:placed',
-            loadChildren: () =>
-              import('./offers/edit-offer/edit-offer.module').then(
-                (m) => m.EditOfferPageModule
-              ),
-          },
-          // eslint-disable-next-line max-len
-          {
-            path: ':placeId',
+            path: ':id',
             loadChildren: () =>
               import('./offers/offer-bookings/offer-bookings.module').then(
                 (m) => m.OfferBookingsPageModule
+              ),
+          },
+          {
+            path: 'edit/:id',
+            loadChildren: () =>
+              import('./offers/edit-offer/edit-offer.module').then(
+                (m) => m.EditOfferPageModule
               ),
           },
         ],
