@@ -5,9 +5,24 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-button color="primary" (click)="onLogin()" *ngIf="!authenticated">
-    Login
-  </ion-button>
+  <ion-list *ngIf="!authenticated">
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input (input)="onEmailChange($event.target.value)"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" (input)="onPasswordChange($event.target.value)"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Confirm Password</ion-label>
+      <ion-input type="password"  (input)="onConfirmPasswordChange($event.target.value)"></ion-input>
+    </ion-item>
+    <ion-button color="primary" (click)="onLogin()" >
+      Login
+    </ion-button>
+  </ion-list>
+  
   <ion-button color="primary" (click)="onLogout()" *ngIf="authenticated">
     Logout
   </ion-button>
