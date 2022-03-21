@@ -9,29 +9,30 @@ import { User } from './auth.service';
 })
 export class AuthPage implements OnInit {
   authenticated = false;
-  email: string;
-  password: string;
-  confirmPassword: string;
-
+  private email = '';
+  private password = '';
+  private confirmPassword = '';
+  private loading = false;
   constructor(private authService: AuthService, private router: Router) {}
   ngOnInit() {}
   onEmailChange(email: string) {
     this.email = email;
-    console.log(this.email);
   }
   onPasswordChange(password: string) {
     this.password = password;
-    console.log(this.password);
   }
   onConfirmPasswordChange(password: string) {
     this.confirmPassword = password;
-    console.log(this.confirmPassword);
   }
   onLogin() {
+    this.loading = true;
     const user = new User(this.email, this.password);
     const authed = this.authService.login(user);
-    this.router.navigateByUrl('/places/tabs/discover');
-    this.authenticated = this.authService.isAuthenticated();
+    if (authed) {
+      this.authenticated = this.authService.isAuthenticated();
+      this.loading = false;
+      this.router.navigateByUrl('/places/tabs/discover');
+    }
   }
   onLogout() {
     this.authService.logout();

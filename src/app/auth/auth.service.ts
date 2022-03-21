@@ -8,22 +8,21 @@ export class AuthService {
   private userIsAuthenticated = false;
   constructor() {}
   findUser(userToFind: User) {
-    const found = this.users.find((user) => user === userToFind);
+    const found = this.users.find((user) => user.email === userToFind.email);
     return found;
   }
   isAuthenticated() {
     return this.userIsAuthenticated;
   }
   login(user: User) {
-    if (!this.users.length) {
-      this.users.push(user);
-      this.userIsAuthenticated = true;
-      return;
-    }
     const foundUser = this.findUser(user);
     if (foundUser) {
-      alert('email and password combo already ezists');
+      this.userIsAuthenticated = true;
+      return user;
     }
+    this.users.push(user);
+    this.userIsAuthenticated = true;
+    return user;
   }
   logout() {
     this.userIsAuthenticated = false;
