@@ -28,18 +28,6 @@ export class AuthPage implements OnInit {
     console.log(this.confirmPassword);
   }
   onLogin() {
-    if (!this.email) {
-      alert('No email given');
-      return;
-    }
-    if (this.confirmPassword !== this.password) {
-      alert('Passwords not equal');
-      return;
-    }
-    if (!this.password || !this.confirmPassword) {
-      alert('Must submit password');
-      return;
-    }
     const user = new User(this.email, this.password);
     const authed = this.authService.login(user);
     this.router.navigateByUrl('/places/tabs/discover');
