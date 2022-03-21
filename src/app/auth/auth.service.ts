@@ -4,7 +4,14 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AuthService {
-  users: User[] = [];
+  users: User[] = [
+    { email: '123', password: '123' },
+    { email: '1234', password: '123' },
+    { email: '12345', password: '123' },
+    { email: '123456', password: '123' },
+    { email: '1234567', password: '123' },
+    { email: '12345678', password: '123' },
+  ];
   private userIsAuthenticated = false;
   constructor() {}
   findUser(userToFind: User) {
@@ -14,15 +21,27 @@ export class AuthService {
   isAuthenticated() {
     return this.userIsAuthenticated;
   }
-  login(user: User) {
+  login(user: User): User | string {
     const foundUser = this.findUser(user);
     if (foundUser) {
+      if (foundUser.password !== user.password) {
+        return;
+      }
       this.userIsAuthenticated = true;
       return user;
     }
-    this.users.push(user);
-    this.userIsAuthenticated = true;
-    return user;
+
+    return 'Please Register. User does not exist';
+  }
+  register(user: User): User | string {
+    const foundUser = this.findUser(user);
+    if (foundUser) {
+      return 'Please Login. User already Exists.';
+    } else {
+      this.users.push(user);
+      this.userIsAuthenticated = true;
+      return user;
+    }
   }
   logout() {
     this.userIsAuthenticated = false;

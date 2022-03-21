@@ -14,15 +14,21 @@
       <ion-label position="floating">Password</ion-label>
       <ion-input type="password" (input)="onPasswordChange($event.target.value)"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-label position="floating">Confirm Password</ion-label>
+    <ion-item *ngIf="error">
+      <ion-label position="floating" >Confirm Password</ion-label>
       <ion-input type="password"  (input)="onConfirmPasswordChange($event.target.value)"></ion-input>
     </ion-item>
+    <div *ngIf="error">
+      <p>{{error}}</p>
+    </div>
     <div *ngIf="loading">
       <ion-spinner color="primary"></ion-spinner>
     </div>
-    <ion-button color="primary" (click)="onLogin()" >
+    <ion-button color="primary" *ngIf="!error" (click)="onLogin()" >
       Login
+    </ion-button>
+    <ion-button color="primary" *ngIf="error" (click)="onRegister()" >
+      Register
     </ion-button>
   </ion-list>
   <ion-button color="primary" (click)="onLogout()" *ngIf="authenticated">

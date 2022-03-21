@@ -13,6 +13,7 @@ export class AuthPage implements OnInit {
   private password = '';
   private confirmPassword = '';
   private loading = false;
+  private error = '';
   constructor(private authService: AuthService, private router: Router) {}
   ngOnInit() {}
   onEmailChange(email: string) {
@@ -28,14 +29,35 @@ export class AuthPage implements OnInit {
     this.loading = true;
     const user = new User(this.email, this.password);
     const authed = this.authService.login(user);
-    if (authed) {
-      this.authenticated = this.authService.isAuthenticated();
-      this.loading = false;
-      this.router.navigateByUrl('/places/tabs/discover');
+    if (typeof authed !== 'string') {
+      this.authenticate();
+    } else {
+      this.error = authed;
     }
+    this.loading = false;
+  }
+  onRegister() {
+    this.loading = true;
+    const validated = this.validatePassword();
+    if (validated) {
+      const newUser = new User(this.email, this.password);
+      const registered = this.authService.register(newUser);
+      if (registered) {
+        this.authenticate();
+      }
+    }
+    this.loading = false;
   }
   onLogout() {
     this.authService.logout();
     this.authenticated = this.authService.isAuthenticated();
+  }
+  private validatePassword() {
+    return this.password === this.confirmPassword && this.password.length >= 3;
+  }
+  private authenticate() {
+    this.authenticated = this.authService.isAuthenticated();
+    this.error = '';
+    this.router.navigateByUrl('/places/tabs/discover');
   }
 }
