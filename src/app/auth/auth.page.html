@@ -1,37 +1,61 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Authenticate</ion-title>
+    <ion-title>{{ isLogin ? 'Login' : 'Signup'}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <ion-list *ngIf="!authenticated">
-    <ion-item>
-      <ion-label position="floating">Email</ion-label>
-      <ion-input (input)="onEmailChange($event.target.value)"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" (input)="onPasswordChange($event.target.value)"></ion-input>
-    </ion-item>
-    <ion-item *ngIf="error">
-      <ion-label position="floating" >Confirm Password</ion-label>
-      <ion-input type="password"  (input)="onConfirmPasswordChange($event.target.value)"></ion-input>
-    </ion-item>
-    <div *ngIf="error">
-      <p>{{error}}</p>
-    </div>
-    <div *ngIf="loading">
-      <ion-spinner color="primary"></ion-spinner>
-    </div>
-    <ion-button color="primary" *ngIf="!error" (click)="onLogin()" >
-      Login
-    </ion-button>
-    <ion-button color="primary" *ngIf="error" (click)="onRegister()" >
-      Register
-    </ion-button>
-  </ion-list>
+<ion-content class="ion-text-center">
+ <form #f="ngForm" (ngSubmit)="onSubmit(f)" >
+    <ion-grid>
+      <ion-row *ngIf="!authenticated">
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input  name="email" type="email" ngModel required email #emailCtrl="ngModel"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="!emailCtrl.valid && emailCtrl.touched" lines="none">
+            <ion-label>Should be valid email</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input name="password" ngModel type="password" #passCtrl="ngModel" required minlength="6"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="!isLogin">
+            <ion-label position="floating" >Confirm Password</ion-label>
+            <ion-input ngModel name="confirmPassword" type="password" ></ion-input>
+          </ion-item>
+          <ion-item *ngIf="!passCtrl.valid && passCtrl.touched" lines="none">
+            <ion-label>Should be atleast 6 characters</ion-label>
+          </ion-item>
+          <ion-item *ngIf="error" lines="none">
+            <ion-label>{{error}}</ion-label>
+          </ion-item>
+          
+        </ion-col>
+      </ion-row>
+     <ion-row>
+      <ion-col>
+        <div *ngIf="loading">
+          <ion-spinner color="primary"></ion-spinner>
+        </div>
+      </ion-col>
+     </ion-row>
+      <ion-row *ngIf="!authenticated">
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-button type="button" color="primary" fill="clear" (click)="switchAuthMode()" >
+            Switch to  {{ isLogin ? 'Signup' : 'Login'}}
+          </ion-button>
+          <ion-button type="submit" color="primary" 
+           expand="block"
+          (click)="onSubmit()" [disabled]="!f.valid" >
+          {{ isLogin ? 'Login' : 'Submit'}}
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  
   <ion-button color="primary" (click)="onLogout()" *ngIf="authenticated">
     Logout
   </ion-button>
+ </form>
 </ion-content>

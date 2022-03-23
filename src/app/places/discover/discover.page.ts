@@ -8,10 +8,11 @@ import { Place } from '../places.service';
 })
 export class DiscoverPage implements OnInit {
   private places: Place[];
+  private firstItem: Place[];
   constructor(private pService: PlacesService) {}
 
   ngOnInit() {
     this.places = this.pService.getPlaces();
-    console.log(this.places);
+    this.firstItem = this.places.slice(1);
   }
 }

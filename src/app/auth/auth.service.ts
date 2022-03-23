@@ -4,14 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AuthService {
-  users: User[] = [
-    { email: '123', password: '123' },
-    { email: '1234', password: '123' },
-    { email: '12345', password: '123' },
-    { email: '123456', password: '123' },
-    { email: '1234567', password: '123' },
-    { email: '12345678', password: '123' },
-  ];
+  users: User[] = [{ email: 'l@gmail.com', password: '123456' }];
   private userIsAuthenticated = false;
   constructor() {}
   findUser(userToFind: User) {

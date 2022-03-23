@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
+import { NgForm } from '@angular/forms';
 import { User } from './auth.service';
 @Component({
   selector: 'app-auth',
@@ -9,55 +10,64 @@ import { User } from './auth.service';
 })
 export class AuthPage implements OnInit {
   authenticated = false;
-  private email = '';
-  private password = '';
-  private confirmPassword = '';
+  isLogin = true;
   private loading = false;
   private error = '';
   constructor(private authService: AuthService, private router: Router) {}
   ngOnInit() {}
-  onEmailChange(email: string) {
-    this.email = email;
+  async onSubmit(form: NgForm) {
+    if (!form.valid) {
+      return;
+    }
+    if (this.isLogin) {
+      return this.onLogin(form);
+    }
+    return this.onRegister(form);
   }
-  onPasswordChange(password: string) {
-    this.password = password;
-  }
-  onConfirmPasswordChange(password: string) {
-    this.confirmPassword = password;
-  }
-  onLogin() {
+  private onLogin(form: NgForm) {
     this.loading = true;
-    const user = new User(this.email, this.password);
+    const { email, password } = form.value;
+    const user = new User(email, password);
     const authed = this.authService.login(user);
     if (typeof authed !== 'string') {
-      this.authenticate();
+      return this.authenticate();
     } else {
-      this.error = authed;
+      this.error = 'User not found. Please Register';
+      this.switchAuthMode();
     }
     this.loading = false;
   }
-  onRegister() {
+  private switchAuthMode() {
+    this.isLogin = !this.isLogin;
+  }
+  private onRegister(form: NgForm) {
     this.loading = true;
-    const validated = this.validatePassword();
+    const { email, password, confirmPassword } = form.value;
+    const validated = password === confirmPassword;
     if (validated) {
-      const newUser = new User(this.email, this.password);
+      const newUser = new User(password, email);
       const registered = this.authService.register(newUser);
-      if (registered) {
-        this.authenticate();
+      if (typeof registered !== 'string') {
+        return this.authenticate();
+      } else {
+        this.error = registered;
       }
+    } else {
+      this.error = 'Register Failed';
     }
     this.loading = false;
   }
-  onLogout() {
+  private onLogout() {
     this.authService.logout();
     this.authenticated = this.authService.isAuthenticated();
   }
-  private validatePassword() {
-    return this.password === this.confirmPassword && this.password.length >= 3;
-  }
-  private authenticate() {
-    this.authenticated = this.authService.isAuthenticated();
-    this.error = '';
-    this.router.navigateByUrl('/places/tabs/discover');
+
+  private async authenticate() {
+    await setTimeout(async () => {
+      this.authenticated = await this.authService.isAuthenticated();
+      this.error = '';
+      this.router.navigateByUrl('/places/tabs/discover');
+      this.loading = false;
+    }, 3000);
   }
 }
