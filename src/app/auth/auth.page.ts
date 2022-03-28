@@ -45,7 +45,7 @@ export class AuthPage implements OnInit {
     const { email, password, confirmPassword } = form.value;
     const validated = password === confirmPassword;
     if (validated) {
-      const newUser = new User(password, email);
+      const newUser = new User(email, password);
       const registered = this.authService.register(newUser);
       if (typeof registered !== 'string') {
         return this.authenticate();
