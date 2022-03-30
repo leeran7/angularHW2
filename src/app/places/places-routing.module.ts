@@ -23,10 +23,10 @@ const routes: Routes = [
               import('./offers/offers.module').then((m) => m.OffersPageModule),
           },
           {
-            path: ':id',
+            path: 'new',
             loadChildren: () =>
-              import('./offers/offer-bookings/offer-bookings.module').then(
-                (m) => m.OfferBookingsPageModule
+              import('./offers/new-offer/new-offer.module').then(
+                (m) => m.NewOfferPageModule
               ),
           },
           {
@@ -34,6 +34,13 @@ const routes: Routes = [
             loadChildren: () =>
               import('./offers/edit-offer/edit-offer.module').then(
                 (m) => m.EditOfferPageModule
+              ),
+          },
+          {
+            path: ':id',
+            loadChildren: () =>
+              import('./offers/offer-bookings/offer-bookings.module').then(
+                (m) => m.OfferBookingsPageModule
               ),
           },
         ],

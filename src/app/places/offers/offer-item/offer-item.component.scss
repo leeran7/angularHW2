@@ -9,7 +9,12 @@ h1 {
 .offer-details {
   display: flex;
   align-items: center;
+
   .space-left {
     margin-left: 5px;
+    font-size: small;
   }
+}
+.calendar {
+  font-size: larger !important;
 }
