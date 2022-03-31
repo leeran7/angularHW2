@@ -18,4 +18,8 @@ export class BoookingsService {
   getBookings() {
     return [...this.bookings];
   }
+  cancelBooking(bookingId: number) {
+    this.bookings = this.bookings.filter((booking) => booking.id !== bookingId);
+    return this.getBookings();
+  }
 }
