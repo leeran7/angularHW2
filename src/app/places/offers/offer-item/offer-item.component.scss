@@ -1,20 +1,33 @@
 h1 {
-  font-size: 18px;
-  border: 1px solid var(--ion-color-primary);
+  font-size: 20px;
+  border: 1px solid whitesmoke;
   padding: 8px;
   border-radius: 5px;
-  color: var(--ion-color-primary);
+  padding: 10px;
+  color: whitesmoke;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .offer-details {
   display: flex;
   align-items: center;
-
-  .space-left {
-    margin-left: 5px;
-    font-size: small;
-  }
+  margin-top: 5px;
 }
+
+.date {
+  margin: auto;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.mid {
+  margin: 0 1px;
+  font-size: 10px;
+}
+
 .calendar {
-  font-size: larger !important;
+  margin: 0 1px;
 }
