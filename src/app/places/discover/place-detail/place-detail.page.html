@@ -10,8 +10,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-row class="ion-align-items-center mb-25 ion-text-center justify-content-end ion-padding">
     <ion-img [src]='place.image'></ion-img>
     <p>{{place.description}}</p>
     <ion-button color="primary" margin (click)="bookPlace()" >Go to booking</ion-button>
-</ion-content>
+</ion-row>

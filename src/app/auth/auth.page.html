@@ -4,8 +4,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-text-center">
- <form #f="ngForm" (ngSubmit)="onSubmit(f)" >
+<ion-row class="ion-align-items-center mb-25 ion-text-center justify-content-end">
+ <form #f="ngForm" class="grow" (ngSubmit)="onSubmit(f)" >
     <ion-grid>
       <ion-row *ngIf="!authenticated">
         <ion-col size-sm="6" offset-sm="3">
@@ -58,4 +58,4 @@
     Logout
   </ion-button>
  </form>
-</ion-content>
+</ion-row>

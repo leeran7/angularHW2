@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-row class="ion-align-items-center mb-25 ion-text-center justify-content-end">
   <ion-segment value="all">
     <ion-segment-button value="all">All Places</ion-segment-button>
     <ion-segment-button value="bookable">Bookable Places</ion-segment-button>
@@ -34,7 +34,7 @@
           <h2 class="heading">Other Listings</h2>
           <ion-virtual-scroll [items]="firstItem" approxItemheight="100px">
             <ion-item [routerLink]="['/','places','tabs','discover',place.id]" *virtualItem="let place">
-              <ion-thumbnail slot="start">
+              <ion-thumbnail class="thumbnail" slot="start">
                 <ion-img class="image" [src]="place.image"></ion-img>
               </ion-thumbnail>
               <ion-label>
@@ -47,5 +47,5 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-</ion-content>
+</ion-row>
 
