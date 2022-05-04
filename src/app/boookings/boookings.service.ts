@@ -18,6 +18,9 @@ export class BoookingsService {
   getBookings() {
     return [...this.bookings];
   }
+  addBooking(booking: any) {
+    this.bookings.push(booking);
+  }
   cancelBooking(bookingId: number) {
     this.bookings = this.bookings.filter((booking) => booking.id !== bookingId);
     return this.getBookings();

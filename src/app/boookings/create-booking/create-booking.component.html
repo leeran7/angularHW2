@@ -8,5 +8,11 @@
 </ion-header>
 <ion-content class="ion-text-center" padding>
   <p>{{selectedPlace.description}}</p>
+  <ion-item  class="m-b">
+    <ion-datetime name="date" id="start" required></ion-datetime>
+  </ion-item >
+  <ion-item  class="m-b">
+    <ion-datetime name="date" id="end" required></ion-datetime>
+  </ion-item>
   <ion-button color="primary" (click)="onBookPlace()">Complete booking</ion-button>
 </ion-content>
